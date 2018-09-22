@@ -61,7 +61,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            movie = (Movie) intent.getSerializableExtra(Constants.MOVIE_EXTRA_KEY);
+            movie =  intent.getParcelableExtra(Constants.MOVIE_EXTRA_KEY);
 
 
             setTitle(movie.getTitle());

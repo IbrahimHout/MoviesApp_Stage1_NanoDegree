@@ -59,7 +59,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MobviePlac
 
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra(Constants.MOVIE_EXTRA_KEY,movies.get(i));
-                intent.putExtra("test","test");
                 context.startActivity(intent);
 
             }
