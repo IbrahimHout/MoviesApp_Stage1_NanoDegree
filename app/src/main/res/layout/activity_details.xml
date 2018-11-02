@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -7,6 +8,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
 
         <ProgressBar
             android:id="@+id/progress_movie"
@@ -19,25 +21,60 @@
         <LinearLayout
             android:id="@+id/movie_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="visible">
 
 
-            <ImageView
-                android:id="@+id/movie_img"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:scaleType="centerCrop"
+                android:layout_height="240dp">
 
-                />
+                <ImageView
+                    android:id="@+id/movie_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:scaleType="centerCrop"
+
+                    />
+                <TextView
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:id="@+id/addToFavTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_to_favorite"
+                    android:textColor="@color/background"
+                    android:background="@drawable/badge_white"
+                    android:layout_gravity="end|top"
+                    android:layout_marginTop="16dp"
+                    />
+
+                <TextView
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:id="@+id/addedToFavTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|top"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/badge_white"
+                    android:text="@string/added_to_favorite"
+                    android:textColor="@color/background"
+                    android:drawablePadding="8dp"
+                    />
+
+            </FrameLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
 
                 >
 
@@ -53,7 +90,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1"
-                        android:scaleType="centerInside" />
+                        android:scaleType="centerInside"
+                        android:src="@color/white" />
 
                     <LinearLayout
 
@@ -73,22 +111,42 @@
                             <TextView
                                 android:id="@+id/movie_title"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
+                                android:layout_weight="1"
+                                android:text="moviename"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="20sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/movieRate"
+                            <LinearLayout
                                 android:layout_width="0dp"
-                                android:gravity="center"
-                                android:layout_weight=".4"
                                 android:layout_height="wrap_content"
-                                android:drawableStart="@drawable/ic_star"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:textSize="20sp" />
+                                android:layout_weight="0.4"
+                                android:background="@drawable/badge2"
+                                android:orientation="horizontal">
+
+                                <RatingBar
+                                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:numStars="1"
+                                    android:rating="1" />
+
+                                <TextView
+                                    android:id="@+id/movieRate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+
+                                    android:text="4"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+
                         </LinearLayout>
 
 
@@ -96,6 +154,7 @@
                             android:id="@+id/movie_overviewTV"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="movie description"
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
 
@@ -104,6 +163,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="16dp"
+                            android:text="relaese date"
                             android:textColor="@color/colorPrimary"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -114,9 +174,99 @@
             </LinearLayout>
 
 
+            <LinearLayout
+                android:id="@+id/movieTrailersLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+
+                <TextView
+                    android:id="@+id/trailerLabelTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/trailers"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/trailersRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/background_light"
+                    />
+
+                <TextView
+                    android:id="@+id/noTrailersTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:text="@string/trailers_are_not_available_for_this_movie"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/movieReviewssLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+
+                <TextView
+                    android:id="@+id/reviewsLabelTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/reviews"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/reviewsRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/background_light"
+
+                    />
+                <TextView
+                    android:id="@+id/noReviewsTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:text="@string/reviews_are_not_available_for_this_movie"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
+
 
     </FrameLayout>
 

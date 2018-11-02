@@ -1,6 +1,8 @@
 package com.example.ibrahimelhout.moviesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,8 +22,8 @@ import com.example.ibrahimelhout.moviesapp.Adapters.MoviesAdapter;
 import com.example.ibrahimelhout.moviesapp.Models.Movie;
 import com.example.ibrahimelhout.moviesapp.Models.Result;
 import com.example.ibrahimelhout.moviesapp.Utils.Constants;
-import com.example.ibrahimelhout.moviesapp.Utils.MyRetrofiInterface;
-import com.example.ibrahimelhout.moviesapp.Utils.UtilsSinglton;
+import com.example.ibrahimelhout.moviesapp.Network.MyRetrofiInterface;
+import com.example.ibrahimelhout.moviesapp.Network.UtilsSinglton;
 
 import java.util.ArrayList;
 
@@ -33,9 +35,9 @@ import retrofit2.Response;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
 
-    private int sortType = Constants.TYPE_POPULAR;
+    private int sortType ;
 
     private static final String TAG = "MainActivity";
     @BindView(R.id.gridrecycler)
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     ProgressBar progressMain;
 
+    int layoutManagerPosition;
 
     private MyRetrofiInterface retrofiInterface;
 
@@ -55,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Movie> movies;
     private GridLayoutManager gridLayoutManager;
 
-    int pageNumber = 0;
+    boolean locationRestore = false;
+    int location = 0;
     @BindView(R.id.errorBG)
     ImageView errorBG;
 
@@ -64,6 +68,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
+        if (savedInstanceState==null){
+            sortType = Constants.TYPE_POPULAR;
+            Log.d(TAG, "onCreate: == null" +sortType);
+        }else {
+
+            if (savedInstanceState.containsKey(Constants.SORT_TYPE)){
+                sortType = savedInstanceState.getInt(Constants.SORT_TYPE);
+            }else {
+                sortType = Constants.TYPE_POPULAR;
+            }
+
+            Log.d(TAG, "onCreate:  != null "+ sortType);
+        }
+
+
+        Log.d(TAG, "onCreate:  sortType = "  +sortType );
+
 
 
         initiateAdapterWithRecycler();
@@ -97,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
     private void requestMovies(int opType) {
 
 
+
         Call<Result> getResults =null;
         //Edit op type todo**
         if (opType==Constants.TYPE_POPULAR){
@@ -115,13 +139,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
 
-                Log.d(TAG, "onResponse: " + response.body().toString());
+//                Log.d(TAG, "onResponse: " + response.body().toString());
 
 
                 ArrayList<Movie> newMovies = new ArrayList<>(response.body().getResults());
                 refreshContainer.setRefreshing(false);
 
                 populate(newMovies);
+
 
 
             }
@@ -146,7 +171,11 @@ public class MainActivity extends AppCompatActivity {
         progressMain.setVisibility(View.GONE);
         errorBG.setVisibility(View.GONE);
         refreshContainer.setVisibility(View.VISIBLE);
-        gridRecycler.smoothScrollToPosition(0);
+
+        if (locationRestore){
+//            gridRecycler.scrollToPosition(location);
+            locationRestore = false;
+        }
 
 
     }
@@ -167,6 +196,12 @@ public class MainActivity extends AppCompatActivity {
 
                 showSortPopUp(item);
 
+                break;
+
+
+            case R.id.favMovies:
+                Intent intent = new Intent(this,FavoriteMoviesActivity.class);
+                startActivity(intent);
                 break;
 
                 // Switch in case of adding other items to the menut
@@ -203,11 +238,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     private void changeSort() {
         progressMain.setVisibility(View.VISIBLE);
         refreshContainer.setVisibility(View.GONE);
         requestMovies(sortType);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(Constants.SORT_TYPE,sortType);
+    }
 
 }

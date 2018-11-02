@@ -1,4 +1,4 @@
-package com.example.ibrahimelhout.moviesapp.Utils;
+package com.example.ibrahimelhout.moviesapp.Network;
 
 
 import retrofit2.Retrofit;

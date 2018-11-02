@@ -1,16 +1,20 @@
 package com.example.ibrahimelhout.moviesapp.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.example.ibrahimelhout.moviesapp.Utils.Constants;
 
 
+@Entity(tableName = "movie")
 public class Movie implements Parcelable {
 
-
-
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
     private String poster_path;
     private String backdrop_path;
     private double vote_average;
@@ -19,8 +23,18 @@ public class Movie implements Parcelable {
     private String status;
     private String release_date;
     private int vote_count;
+    private boolean video;
 
     public Movie() {
+    }
+
+
+    public boolean isVideo() {
+        return video;
+    }
+
+    public void setVideo(boolean video) {
+        this.video = video;
     }
 
     public int getId() {
@@ -32,7 +46,7 @@ public class Movie implements Parcelable {
     }
 
     public String getPoster_path() {
-        return Constants.PHOTO_BASE_URL+poster_path;
+        return poster_path;
     }
 
     public void setPoster_path(String poster_path) {
@@ -40,7 +54,7 @@ public class Movie implements Parcelable {
     }
 
     public String getBackdrop_path() {
-        return Constants.PHOTO_BASE_URL+backdrop_path;
+        return backdrop_path;
     }
 
     public void setBackdrop_path(String backdrop_path) {
@@ -113,6 +127,7 @@ public class Movie implements Parcelable {
         dest.writeString(this.status);
         dest.writeString(this.release_date);
         dest.writeInt(this.vote_count);
+        dest.writeByte(this.video ? (byte) 1 : (byte) 0);
     }
 
     protected Movie(Parcel in) {
@@ -125,9 +140,10 @@ public class Movie implements Parcelable {
         this.status = in.readString();
         this.release_date = in.readString();
         this.vote_count = in.readInt();
+        this.video = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);

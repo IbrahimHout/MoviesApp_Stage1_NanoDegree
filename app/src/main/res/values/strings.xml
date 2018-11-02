@@ -5,4 +5,11 @@
     <string name="sorting">Sorting</string>
     <string name="most_popular">Most Popular</string>
     <string name="top_rated">Top Rated</string>
+    <string name="favorites">Favorites</string>
+    <string name="sorry_there_is_no_items_in_favorites">Sorry, there is no items in Favorites</string>
+    <string name="trailers_are_not_available_for_this_movie">Sorry, Trailers are not available for this movie</string>
+    <string name="reviews_are_not_available_for_this_movie">Sorry, Reviews are not available for this movie</string>
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="added_to_favorite">Added to favorite, \n click to remove</string>
+    <string name="reviews">Reviews</string>
 </resources>

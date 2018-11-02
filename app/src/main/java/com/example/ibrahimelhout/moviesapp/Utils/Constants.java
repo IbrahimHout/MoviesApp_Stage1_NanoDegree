@@ -7,6 +7,9 @@ public interface Constants {
     String POPULAR_MOVIES_LINK = "movie/popular?api_key=";
     String TOP_RATED_MOVIES_LINK = "movie/top_rated?api_key=";
 
+    String BASE_YOUTUBE_URL = "http://www.youtube.com/watch?v=";
+
+
     String PHOTO_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 
@@ -17,4 +20,6 @@ public interface Constants {
     String CURRENT_RECYCLER_LOCATION = "currentPositionOfRecycler";
     int TYPE_POPULAR = 111;
     int TYPE_TOP_RATED = 222;
+    String LOCATION_OF_LINEAR_LAYOUT = "locationOfLinearLayout";
+    String SORT_TYPE = "sortType";
 }

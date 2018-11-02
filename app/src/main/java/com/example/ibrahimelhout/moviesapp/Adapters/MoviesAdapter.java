@@ -49,7 +49,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MobviePlac
         mobviePlaceholder.movieTitleTV.setText(movies.get(i).getTitle());
         mobviePlaceholder.movieRateBadgeTV.setText(movies.get(i).getVote_average()+"");
 
-        Picasso.get().load(movies.get(i).getPoster_path()).placeholder(R.drawable.no_image).error(R.drawable.no_image).into(mobviePlaceholder.moviePosterIV);
+        Picasso.get().load(Constants.PHOTO_BASE_URL+movies.get(i).getPoster_path()).placeholder(R.drawable.no_image).error(R.drawable.no_image).into(mobviePlaceholder.moviePosterIV);
 
         Log.d(TAG, "onBindViewHolder: "+movies.get(i).getPoster_path());
         Log.d(TAG, "onBindViewHolder: ");
