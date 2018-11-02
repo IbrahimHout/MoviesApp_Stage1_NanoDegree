@@ -2,6 +2,7 @@ package com.example.ibrahimelhout.moviesapp.Database;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+import android.support.annotation.NonNull;
 
 public class AddMovieViewModelFactory extends ViewModelProvider.NewInstanceFactory{
 
@@ -13,8 +14,9 @@ public class AddMovieViewModelFactory extends ViewModelProvider.NewInstanceFacto
         movieID =id;
 
     }
+    @NonNull
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
         return (T) new AddMovieViewModel(myDB, movieID);
     }

@@ -1,8 +1,10 @@
 package com.example.ibrahimelhout.moviesapp.Utils;
 
+import com.example.ibrahimelhout.moviesapp.BuildConfig;
+
 public interface Constants {
 
-    String API_KEY  = "c1bb056c7ec1384a1029b0b0de3e6a8e";
+    String API_KEY  = BuildConfig.ApiKey;
     String API_BASE_URL = "http://api.themoviedb.org/3/";
     String POPULAR_MOVIES_LINK = "movie/popular?api_key=";
     String TOP_RATED_MOVIES_LINK = "movie/top_rated?api_key=";
@@ -20,6 +22,7 @@ public interface Constants {
     String CURRENT_RECYCLER_LOCATION = "currentPositionOfRecycler";
     int TYPE_POPULAR = 111;
     int TYPE_TOP_RATED = 222;
+    int TYPE_FAV = 333;
     String LOCATION_OF_LINEAR_LAYOUT = "locationOfLinearLayout";
     String SORT_TYPE = "sortType";
 }

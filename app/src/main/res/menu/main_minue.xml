@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <item android:id="@+id/favMovies" app:showAsAction="ifRoom"
-        android:title="@string/sorting"
-        android:icon="@drawable/ic_star_yello_24dp"
-        />
+    <!--<item android:id="@+id/favMovies" app:showAsAction="ifRoom"-->
+        <!--android:title="@string/sorting"-->
+        <!--android:icon="@drawable/ic_star_yello_24dp"-->
+        <!--/>-->
 
     <item android:id="@+id/sortMovies" app:showAsAction="ifRoom"
         android:title="@string/sorting"
